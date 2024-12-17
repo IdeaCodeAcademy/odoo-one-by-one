@@ -24,7 +24,18 @@
         <field name="arch" type="xml">
             <form string="ica_course_form">
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button name="action_draft"
+                            invisible="state == 'draft'"
+                            class="btn btn-secondary" type="object" string="Rest to Draft"/>
+                    <button name="action_publish"
+                            confirm="Are you sure to publish ?"
+                             invisible="state == 'published'"
+                            class="btn btn-success" type="object" string="Publish"/>
+                    <button name="action_cancel"
+                            invisible="state != 'published'"
+                             confirm="Are you sure to cancel ?"
+                            class="btn btn-danger" type="object" string="Cancel"/>
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group>

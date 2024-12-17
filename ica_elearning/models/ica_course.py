@@ -17,8 +17,28 @@ class ICACourse(models.Model):
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
     fees = fields.Monetary(currency_field='currency_id')
     notes = fields.Html()
-    state = fields.Selection([('draft', 'Draft'), ('published', 'Published'), ('cancel', 'Cancelled')], default='draft')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+        ('cancel', 'Cancelled')], default='draft')
     lesson_ids = fields.One2many('ica.lesson', 'course_id', string='Lessons')
+
+    _sql_constraints = [('name_uniq', "unique(name)",
+                         "Course Name Should be unique.")]
+
+    def action_draft(self):
+        self.state = 'draft'
+
+    def action_publish(self):
+        self.state = 'published'
+
+    def action_cancel(self):
+        self.state = 'cancel'
+
+# table
+#       id,cloumns 1, col 2, col3 ,state
+# self # 1,abc,20,099999,draft
+# self # 2,abc,20,099999,draft
 
 # sample
 # def abc(self):
