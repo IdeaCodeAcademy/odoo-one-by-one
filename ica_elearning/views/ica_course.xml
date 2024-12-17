@@ -39,6 +39,9 @@
                         </group>
                     </group>
                     <notebook>
+                        <page name="lessons" string="Lessons">
+                            <field name="lesson_ids"/>
+                        </page>
                         <page name="description" string="Description">
                             <field name="description"/>
                         </page>
@@ -58,8 +61,4 @@
         <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="ica_elearning_root" name="E-Learning">
-        <menuitem id="ica_learning_category" name="Courses"
-                  action="ica_elearning.ica_course_action"/>
-    </menuitem>
 </odoo>
