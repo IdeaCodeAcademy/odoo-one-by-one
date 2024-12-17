@@ -31,16 +31,28 @@
                         <group string="Information">
                             <field name="name"/>
                             <field name="partner_id"/>
+                            <field name="phone" invisible="partner_id == False"/>
+                            <field name="email"  invisible="partner_id == False"/>
+<!--                             <field name="category_ids" widget="many2many_tags"/>-->
                         </group>
                         <group string="Details">
                             <field name="company_id" invisible="1"/>
                             <field name="currency_id" invisible="1"/>
-                            <field name="fees"/>
+                            <field name="fees" readonly="state == 'published'"/>
                         </group>
                     </group>
                     <notebook>
                         <page name="lessons" string="Lessons">
-                            <field name="lesson_ids"/>
+                            <field name="lesson_ids">
+                                <list delete="0">
+                                    <field name="name"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                    </group>
+                                </form>
+                            </field>
                         </page>
                         <page name="description" string="Description">
                             <field name="description"/>
