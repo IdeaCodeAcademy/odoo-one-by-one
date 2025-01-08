@@ -49,18 +49,23 @@
                             </span>
                         </button>
                     </div>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
                     <div class="oe_title">
                         <h1>
                             <field name="reference"/>
                         </h1>
                     </div>
+
                     <group>
                         <group string="Information">
-<!--                            <field name="reference"/>-->
+
+                            <!--                            <field name="reference"/>-->
+<!--                            <field name="state" widget="radio"/>-->
                             <field name="name"/>
                             <field name="partner_id"/>
                             <field name="phone" invisible="partner_id == False"/>
                             <field name="email" invisible="partner_id == False"/>
+                            <field name="url" widget="url"/>
                             <!--                             <field name="category_ids" widget="many2many_tags"/>-->
                         </group>
                         <group string="Details">

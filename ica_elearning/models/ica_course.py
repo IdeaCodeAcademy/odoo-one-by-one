@@ -3,6 +3,7 @@ from odoo import api, fields, models,_
 
 class ICACourse(models.Model):
     _name = "ica.course"
+    _inherit = ['image.mixin']
     _description = "ICA Course"
 
 
@@ -25,6 +26,8 @@ class ICACourse(models.Model):
         ('cancel', 'Cancelled')], default='draft')
     lesson_ids = fields.One2many('ica.lesson', 'course_id', string='Lessons')
     lesson_count = fields.Integer(readonly=True,compute='_compute_lesson_count')
+    image_1920 = fields.Image()
+    url = fields.Char()
 
     _sql_constraints = [('name_uniq', "unique(name)",
                          "Course Name Should be unique.")]
