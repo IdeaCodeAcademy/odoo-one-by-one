@@ -1,10 +1,12 @@
-from odoo import api, fields, models
+from odoo import api, fields, models,_
 
 
 class ICACourse(models.Model):
     _name = "ica.course"
     _description = "ICA Course"
 
+
+    reference = fields.Char(string="Reference", required=False,readonly=True,default=lambda self: _('New'))
     name = fields.Char(required=True)
     description = fields.Text()
 
@@ -26,6 +28,13 @@ class ICACourse(models.Model):
 
     _sql_constraints = [('name_uniq', "unique(name)",
                          "Course Name Should be unique.")]
+
+    @api.model
+    def create(self, values):
+        # Add code here
+        if values.get('reference',_('New')) == _('New'):
+            values['reference'] = self.env['ir.sequence'].next_by_code('ica.course')
+        return super(ICACourse, self).create(values)
 
     def action_draft(self):
         self.state = 'draft'
