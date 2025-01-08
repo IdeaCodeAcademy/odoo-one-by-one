@@ -6,5 +6,6 @@ class IcaLesson(models.Model):
 
     name = fields.Char()
     course_id = fields.Many2one('ica.course', string='Course')
+    sequence = fields.Integer()
 
 

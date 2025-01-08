@@ -22,6 +22,7 @@ class ICACourse(models.Model):
         ('published', 'Published'),
         ('cancel', 'Cancelled')], default='draft')
     lesson_ids = fields.One2many('ica.lesson', 'course_id', string='Lessons')
+    lesson_count = fields.Integer(readonly=True,compute='_compute_lesson_count')
 
     _sql_constraints = [('name_uniq', "unique(name)",
                          "Course Name Should be unique.")]
@@ -34,6 +35,22 @@ class ICACourse(models.Model):
 
     def action_cancel(self):
         self.state = 'cancel'
+
+
+    def action_view_lessons(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'ica.lesson',
+            'name': f"{self.display_name}'s Lessons",
+            "view_mode": "list,form",
+            'domain': [('id', 'in', self.lesson_ids.ids)],
+            # self.lesson_ids.ids - [1,2,3,4]
+            # [('id','in',[1,2,3,4])]
+        }
+
+    @api.depends('lesson_ids')
+    def _compute_lesson_count(self):
+        self.lesson_count = len(self.lesson_ids)
 
 # table
 #       id,cloumns 1, col 2, col3 ,state
